@@ -1,7 +1,7 @@
 FROM alpine:3.15
 
 # Include dist
-ADD dist/ /root/dist/
+ADD tanner/dist/ /root/dist/
 
 # Setup apt
 RUN apk -U --no-cache add \
@@ -17,7 +17,7 @@ RUN apk -U --no-cache add \
                py3-pip && \
 # Setup Tanner
     git clone --depth=1 https://github.com/rcsinambela/Network-Security.git /opt && \
-    cp task\ 2/tanner /opt/tanner && \
+    cp /opt/task\ 2/tanner /opt/tanner && \
     cp /root/dist/config.yaml /opt/tanner/tanner/data/ && \
     cd /opt/tanner/ && \
     python3 -m venv tanner-env && \
