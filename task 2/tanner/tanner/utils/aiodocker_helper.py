@@ -8,7 +8,7 @@ class AIODockerHelper:
         self.logger = logging.getLogger("tanner.aiodocker_helper.AIODockerHelper")
 
 	#self.docker_client = aiodocker.Docker()
-	self.docker_client = None
+	    self.docker_client = None
         self.host_image = TannerConfig.get("DOCKER", "host_image")
 
     async def get_docker_client(self):
