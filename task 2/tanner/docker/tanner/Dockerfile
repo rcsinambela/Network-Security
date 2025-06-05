@@ -1,24 +1,31 @@
 FROM alpine:3.15
 
 # Include dist
-ADD tanner/dist/ /root/dist/
+ADD dist/ /root/dist/
+RUN mkdir /opt/tanner-copy
+COPY tanner-copy/ /opt/tanner-copy
 
 # Setup apt
 RUN apk -U --no-cache add \
-               build-base \
-               git \
-               libcap \
-               libffi-dev \
-               libressl-dev \
-               linux-headers \
-               py3-yarl \
-               python3 \
-               python3-dev \
-               py3-pip && \
+    build-base \
+    git \
+    nano \
+    libcap \
+    libffi-dev \
+    libressl-dev \
+    linux-headers \
+    py3-yarl \
+    python3 \
+    python3-dev \
+    py3-pip && \
 # Setup Tanner
-    git clone --depth=1 https://github.com/rcsinambela/Network-Security.git /opt && \
-    cp /opt/task\ 2/tanner /opt/tanner && \
+    git clone --depth=1 https://github.com/mushorg/tanner /opt/tanner && \
     cp /root/dist/config.yaml /opt/tanner/tanner/data/ && \
+    cp opt/tanner-copy/requirements.txt /opt/tanner && \
+    cp opt/tanner-copy/setup.py /opt/tanner && \
+    cp opt/tanner-copy/aiodocker_helper.py /opt/tanner/tanner/utils && \
+    cp opt/tanner-copy/api.py /opt/tanner/tanner/api && \
+    cp opt/tanner-copy/session_analyzer.py /opt/tanner/tanner/sessions && \
     cd /opt/tanner/ && \
     python3 -m venv tanner-env && \
     source /opt/tanner/tanner-env/bin/activate && \
